@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent none
     stages {
         stage('build') {
             steps {
@@ -7,17 +7,16 @@ pipeline {
             }
         }
         stage('create image') {
+            agent any
             steps {
                 sh "echo 'creating... image'"
-                sh 'docker.build("containerization-test")'
+                sh 'docker build -t noprysk/containerization-test:latest .'
             }
         }
         stage('deploy') {
-
             steps {
                 sh 'echo "deploy JAR"'
             }
-
         }
     }
 }
