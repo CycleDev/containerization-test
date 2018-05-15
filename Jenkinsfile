@@ -7,19 +7,20 @@ node {
         checkout scm
     }
 
-    stage('Build image') {
-        /* This builds the actual image; synonymous to
-         * docker build on the command line */
+    stage('Build project') {
+        docker.image('maven').inside {
+            sh "mvn clean install"
+        }
+    }
 
+    stage('Build docker image') {
         app = docker.build("noprysk/containerization-test")
     }
 
-    stage('Push image') {
+    stage('Push docker image') {
         docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
             app.push("${env.BUILD_NUMBER}")
             app.push("latest")
         }
     }
 }
-
-
