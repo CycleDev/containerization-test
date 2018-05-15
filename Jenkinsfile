@@ -4,11 +4,11 @@ pipeline {
         stage('build') {
             steps {
                 sh "echo 'building... JAR'"
-
-                def mvn_version = 'M3'
-                withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
-                  sh "mvn clean package"
-                }
+            }
+        }
+        stage('create image') {
+            steps {
+                sh "echo 'creating... image'"
             }
         }
         stage('deploy') {
