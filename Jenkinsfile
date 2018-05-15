@@ -1,29 +1,18 @@
-pipeline {
-    agent {
-        docker {
-            image 'maven:3-alpine'
-            args '-v /root/.m2:/root/.m2'
-        }
+node {
+    def app
+
+    stage('Clone repository') {
+        /* Let's make sure we have the repository cloned to our workspace */
+
+        checkout scm
     }
-    stages {
-        stage('build') {
-            steps {
-                sh "echo 'building... JAR'"
-                sh 'mvn clean install'
-            }
-        }
-        stage('create image') {
-            agent any
-            steps {
-                sh "echo 'creating... image'"
-                sh 'docker.build("noprysk/containerization-test")'
-            }
-        }
-        stage('deploy') {
-            steps {
-                sh 'echo "deploy JAR"'
-            }
-        }
+
+    stage('Build image') {
+        /* This builds the actual image; synonymous to
+         * docker build on the command line */
+
+        app = docker.build("noprysk/containerization-test")
     }
 }
+
 
