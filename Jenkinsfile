@@ -2,8 +2,14 @@ pipeline {
     agent any
     stages {
         stage('build') {
+            agent {
+                docker {
+                    image 'maven:3.5.0'
+                }
+            }
             steps {
                 sh "echo 'building... JAR'"
+                sh 'mvn clean install'
             }
         }
         stage('create image') {
