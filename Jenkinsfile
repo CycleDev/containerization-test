@@ -16,7 +16,7 @@ pipeline {
             agent any
             steps {
                 sh "echo 'creating... image'"
-                docker.build("noprysk/containerization-test")
+                sh 'docker.build("noprysk/containerization-test")'
             }
         }
         stage('deploy') {
