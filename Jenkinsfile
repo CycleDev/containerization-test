@@ -9,7 +9,7 @@ pipeline {
         stage('create image') {
             steps {
                 sh "echo 'creating... image'"
-                sh "docker.build('containerization-test')"
+                sh 'docker.build("containerization-test")'
             }
         }
         stage('deploy') {
