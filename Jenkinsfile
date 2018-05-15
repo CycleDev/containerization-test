@@ -3,13 +3,16 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh "echo 'build JAR'"
+                sh "echo 'building... JAR'"
+                sh 'mvn clean package'
             }
         }
         stage('deploy') {
+
             steps {
                 sh 'echo "deploy JAR"'
             }
+
         }
     }
 }
