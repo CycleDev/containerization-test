@@ -9,6 +9,7 @@ pipeline {
         stage('create image') {
             steps {
                 sh "echo 'creating... image'"
+                sh "docker.build("noprysk/containerization-test")"
             }
         }
         stage('deploy') {
