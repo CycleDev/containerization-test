@@ -25,7 +25,9 @@ node {
     }
 
     stage('Push docker image to kubernetes') {
-        sh 'kubectl get pods'
+        container('kubectl') {
+            sh "kubectl get pods"
+        }
         //sh 'kubectl set image deployment/containerization-test containerization-test=noprysk/containerization-test'
     }
 }
