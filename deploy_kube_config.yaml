@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
         - name: containerization-test
-          image: noprysk/containerization-test:32
+          image: noprysk/containerization-test:34
           ports:
             - name: http-port
               containerPort: 9001
