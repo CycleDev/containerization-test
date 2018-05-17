@@ -1,29 +1,25 @@
 
 def buildProject() {
-    echo ''
+    echo 'Building project ...'
     try {
-        sh 'mvn clean install'
+        // Get last changes
+        checkout scm
+
+        //docker.image('maven').inside {
+            sh 'mvn clean install'
+        //}
     }
     catch(Exception err) {
         echo err.getMessage()
+        throw err;
     }
 }
 
 node {
     def app
 
-    stage('Clone repository') {
-        /* Let's make sure we have the repository cloned to our workspace */
-
-        checkout scm
-    }
-
     stage('Build project') {
         buildProject()
-
-        //docker.image('maven').inside {
-        //    sh 'mvn clean install'
-        //}
     }
 
     stage('Build docker image') {
