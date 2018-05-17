@@ -1,5 +1,6 @@
 
-def dockerHubUrl = 'https://registry.hub.docker.com';
+dockerHubUrl = 'https://registry.hub.docker.com';
+k8sNamespace = 'default'
 
 def buildProject() {
     echo 'Building project ...'
@@ -16,17 +17,30 @@ def buildProject() {
     }
 }
 
-def buildDockerImage() {
+def buildAndPushImage() {
 
     try {
         echo 'Building docker image ...'
         def app = docker.build('noprysk/containerization-test')
 
         echo 'Pushing docker image to docker hub'
-        docker.withRegistry(${dockerHubUrl}, "docker-hub-credentials") {
+        docker.withRegistry("${dockerHubUrl}", "docker-hub-credentials") {
             app.push("${env.BUILD_NUMBER}")
             app.push("latest")
         }
+    } catch(Exception err) {
+        echo err.getMessage()
+        throw err;
+    }
+}
+
+def publishImage() {
+    echo 'Pushing docker image from docker hub to kubernetes ...'
+
+    try {
+        //sh "kubectl get pods"
+        //sh 'kubectl set image deployment/containerization-test containerization-test=noprysk/containerization-test'
+
     } catch(Exception err) {
         echo err.getMessage()
         throw err;
@@ -39,11 +53,10 @@ node {
     }
 
     stage('Build and publish docker image') {
-        buildDockerImage()
+        buildAndPushImage()
     }
 
     stage('Push docker image to kubernetes') {
-        //sh "kubectl get pods"
-        //sh 'kubectl set image deployment/containerization-test containerization-test=noprysk/containerization-test'
+        publishImage()
     }
 }
