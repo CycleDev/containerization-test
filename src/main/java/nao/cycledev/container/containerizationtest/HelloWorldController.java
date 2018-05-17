@@ -8,6 +8,6 @@ public class HelloWorldController {
 
     @GetMapping("/say/hello")
     public String greetings() {
-        return "Hello from Kubernetes 2342342!!!";
+        return "Deploy with Yaml file!!!";
     }
 }

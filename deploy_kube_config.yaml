@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: containerization-test
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: containerization-test
+    spec:
+      containers:
+        - name: containerization-test
+          image: noprysk/containerization-test:32
+          ports:
+            - name: http-port
+              containerPort: 9001
