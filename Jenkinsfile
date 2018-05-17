@@ -1,3 +1,14 @@
+
+def buildProject() {
+    echo ''
+    try {
+        sh 'mvn clean install'
+    }
+    catch(Exception err) {
+        echo err.getMessage()
+    }
+}
+
 node {
     def app
 
@@ -8,9 +19,11 @@ node {
     }
 
     stage('Build project') {
-        docker.image('maven').inside {
-            sh 'mvn clean install'
-        }
+        buildProject()
+
+        //docker.image('maven').inside {
+        //    sh 'mvn clean install'
+        //}
     }
 
     stage('Build docker image') {
