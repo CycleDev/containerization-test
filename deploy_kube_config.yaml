@@ -11,7 +11,8 @@ spec:
     spec:
       containers:
         - name: containerization-test
-          image: noprysk/containerization-test:34
+          image: noprysk/containerization-test:latest
+          imagePullPolicy: Always
           ports:
             - name: http-port
               containerPort: 9001

@@ -8,6 +8,6 @@ public class HelloWorldController {
 
     @GetMapping("/say/hello")
     public String greetings() {
-        return "Deploy with Yaml file - 3333!!!";
+        return "Deploy with Yaml file - 4444!!!";
     }
 }
