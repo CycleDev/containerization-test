@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: containerization-test
@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
         - name: containerization-test
-          image: noprysk/containerization-test:latest
+          image: noprysk/containerization-test:3
           imagePullPolicy: Always
           ports:
             - name: http-port
